@@ -1,0 +1,14 @@
+ru\otus\services\PassTestService.class
+ru\otus\services\impl\PassTestServiceImpl.class
+ru\otus\repositories\QuestionRepository.class
+ru\otus\models\Question.class
+ru\otus\models\Student.class
+ru\otus\models\Answer.class
+ru\otus\services\impl\QuestionServiceImpl.class
+ru\otus\services\impl\AnswerServiceImpl.class
+ru\otus\services\QuestionService.class
+ru\otus\repositories\impl\AnswerRepositoryImpl.class
+ru\otus\services\AnswerService.class
+ru\otus\Main.class
+ru\otus\repositories\impl\QuestionRepositoryImpl.class
+ru\otus\repositories\AnswerRepository.class
