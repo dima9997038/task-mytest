@@ -1,0 +1,13 @@
+1,echo("Hello world"),false
+1,Console.WriteLine("Hello world"),false
+1,System.out.println("Hello world"),true
+2,Yes,false
+2,No,true
+3,# This is comment,false
+3,// This is comment,true
+3,* This is comment,false
+4,[],true
+4,{},false
+4,(),false
+5,0,true
+5,1,false
