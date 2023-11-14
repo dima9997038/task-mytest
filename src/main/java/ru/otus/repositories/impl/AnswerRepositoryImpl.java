@@ -1,5 +1,8 @@
 package ru.otus.repositories.impl;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Repository;
 import ru.otus.models.Answer;
 import ru.otus.repositories.AnswerRepository;
 
@@ -10,10 +13,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
+@PropertySource("classpath:application.properties")
 public class AnswerRepositoryImpl implements AnswerRepository {
     private final String fileName;
 
-    public AnswerRepositoryImpl(String fileName) {
+    public AnswerRepositoryImpl(@Value("${answer.filename}") String fileName) {
         this.fileName = fileName;
     }
 
