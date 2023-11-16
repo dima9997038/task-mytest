@@ -3,7 +3,6 @@ package ru.otus.services.impl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.otus.models.Result;
-import ru.otus.repositories.ResultRepository;
 import ru.otus.repositories.impl.ResultRepositoryImpl;
 import ru.otus.services.ResultService;
 

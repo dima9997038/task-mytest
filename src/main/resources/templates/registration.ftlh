@@ -9,16 +9,11 @@
             margin: auto;
         }
     </style>
-
 </head>
-
 <body>
 <div align="center">
     <h2 style="color: #8686c8">Регистрация студента</h2>
-    <br>
-    <br>
-    <br>
-
+    <br><br><br>
     <div>
 
         <form action="/registration" method="post">
@@ -28,13 +23,9 @@
             Введите фамилию:<br>
             <input type="text" name="surName">
             <br><br><br>
-
             <input type="submit" value="Начать тест">
         </form>
-
     </div>
-
 </div>
-
 </body>
 </html>

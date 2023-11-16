@@ -7,6 +7,7 @@ import java.util.List;
 public interface StudentService {
 
     List<Student> getAll();
+
     Student registration(Student student);
 
     Student getById(Integer id);

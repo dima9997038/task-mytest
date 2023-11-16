@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.otus.dtos.TestAnswerDto;
 import ru.otus.models.Answer;
 import ru.otus.models.Question;
-import ru.otus.models.Result;
 import ru.otus.models.Student;
-import ru.otus.services.ResultService;
 import ru.otus.services.impl.AnswerServiceImpl;
 import ru.otus.services.impl.QuestionServiceImpl;
 import ru.otus.services.impl.ResultServiceImpl;
@@ -26,27 +24,29 @@ public class PassTestController {
     private final StudentServiceImpl studentService;
     private final AnswerServiceImpl answerService;
     private final ResultServiceImpl resultService;
+
     @GetMapping("/passTest/{studentId}")
-    public String passTest(@PathVariable Integer studentId, Model model){
+    public String passTest(@PathVariable Integer studentId, Model model) {
         Question question = questionService.nextQuestion(studentId);
         Student student = studentService.getById(studentId);
-        if(question==null){
-            model.addAttribute("student",student);
+        if (question == null) {
+            model.addAttribute("student", student);
             Integer resultTest = resultService.result(studentId);
-            model.addAttribute("resultTest",resultTest);
+            model.addAttribute("resultTest", resultTest);
             return "result";
         }
 
         List<Answer> answers = answerService.answersOfQuestion(question.getId());
         model.addAttribute("question", question);
-        model.addAttribute("student",student);
-        model.addAttribute("answers",answers);
+        model.addAttribute("student", student);
+        model.addAttribute("answers", answers);
         return "test";
     }
+
     @PostMapping("/testAnswer")
-    public String testAnswer(TestAnswerDto dto){
+    public String testAnswer(TestAnswerDto dto) {
         answerService.setResult(dto);
         System.out.println();
-        return "redirect:/passTest/"+dto.getStudentId();
+        return "redirect:/passTest/" + dto.getStudentId();
     }
 }

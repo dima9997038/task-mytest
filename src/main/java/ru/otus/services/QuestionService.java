@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface QuestionService {
     List<Question> getAll();
+
     Question nextQuestion(Integer studentId);
 }

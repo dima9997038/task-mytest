@@ -9,7 +9,6 @@ import org.supercsv.io.CsvBeanReader;
 import org.supercsv.io.ICsvBeanReader;
 import org.supercsv.prefs.CsvPreference;
 import ru.otus.models.Answer;
-import ru.otus.models.Result;
 import ru.otus.repositories.AnswerRepository;
 
 import java.io.FileReader;
@@ -20,6 +19,7 @@ import java.util.List;
 @Repository
 public class AnswerRepositoryImpl implements AnswerRepository {
     static final String CSV_FILENAME = "src/main/resources/answers.csv";
+
     @Override
     public List<Answer> answersOfQuestion(Integer questionId) {
         List<Answer> results = new ArrayList<>();
@@ -38,6 +38,7 @@ public class AnswerRepositoryImpl implements AnswerRepository {
         }
         return results;
     }
+
     private static CellProcessor[] getProcessors() {
         return new CellProcessor[]{
                 new NotNull(new ParseInt()),

@@ -17,7 +17,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class StudentRepositoryImpl implements StudentRepository {
@@ -72,13 +71,12 @@ public class StudentRepositoryImpl implements StudentRepository {
     private static CellProcessor[] getProcessors() {
 
 
-        final CellProcessor[] processors = new CellProcessor[] {
+        return new CellProcessor[] {
                 new NotNull(new ParseInt()),
                 new NotNull(),
                 new NotNull()
 
 
         };
-        return processors;
     }
 }

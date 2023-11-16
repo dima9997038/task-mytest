@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Answer {
-    private  int questionId;
+    private int questionId;
     private String text;
     private boolean correctAnswer;
 }

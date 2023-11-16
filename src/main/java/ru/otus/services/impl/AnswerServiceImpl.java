@@ -10,13 +10,13 @@ import ru.otus.repositories.impl.ResultRepositoryImpl;
 import ru.otus.services.AnswerService;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class AnswerServiceImpl implements AnswerService {
     private final AnswerRepositoryImpl answerRepository;
     private final ResultRepositoryImpl resultRepository;
+
     @Override
     public List<Answer> answersOfQuestion(Integer questionId) {
         return answerRepository.answersOfQuestion(questionId);
@@ -24,12 +24,12 @@ public class AnswerServiceImpl implements AnswerService {
 
     @Override
     public void setResult(TestAnswerDto dto) {
-        Result result=new Result();
+        Result result = new Result();
         result.setCorrect(false);
         List<Answer> answers = answerRepository.answersOfQuestion(dto.getQuestionId());
         Answer answer = answers.stream().filter(a -> a.getText().equals(dto.getAnswer())).findFirst().orElse(null);
-        if(answer!=null){
-            if (answer.isCorrectAnswer()){
+        if (answer != null) {
+            if (answer.isCorrectAnswer()) {
                 result.setCorrect(true);
             }
         }
