@@ -1,6 +1,5 @@
 package ru.otus.models;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Student {
-    private int id;
-    private String name;
-    private String surName;
+public class Result {
+    private int studentId;
+    private int questionId;
+    private boolean correct;
 }

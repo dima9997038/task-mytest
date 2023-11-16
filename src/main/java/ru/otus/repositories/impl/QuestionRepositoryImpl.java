@@ -1,38 +1,45 @@
 package ru.otus.repositories.impl;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Repository;
+import org.supercsv.cellprocessor.ParseInt;
+import org.supercsv.cellprocessor.constraint.NotNull;
+import org.supercsv.cellprocessor.ift.CellProcessor;
+import org.supercsv.io.CsvBeanReader;
+import org.supercsv.io.ICsvBeanReader;
+import org.supercsv.prefs.CsvPreference;
 import ru.otus.models.Question;
+import ru.otus.models.Student;
 import ru.otus.repositories.QuestionRepository;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 @Repository
-@PropertySource("classpath:application.properties")
 public class QuestionRepositoryImpl implements QuestionRepository {
-    private final String fileName;
-
-    public QuestionRepositoryImpl(@Value("${question.filename}") String fileName) {
-        this.fileName = fileName;
-    }
-
+    static final String CSV_FILENAME = "src/main/resources/questions.csv";
     @Override
     public List<Question> findAll() {
-        List<Question> result = new ArrayList<>();
-        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        try (InputStreamReader streamReader = new InputStreamReader(classloader.getResourceAsStream(fileName), StandardCharsets.UTF_8);
-             BufferedReader reader = new BufferedReader(streamReader)) {
-            for (String line; (line = reader.readLine()) != null; ) {
-                String[] split = line.split(",");
-                result.add(new Question(Integer.parseInt(split[0]), split[1]));
+        List<Question> questions=new ArrayList<>();
+        try(ICsvBeanReader beanReader = new CsvBeanReader(new FileReader(CSV_FILENAME), CsvPreference.STANDARD_PREFERENCE))
+        {
+            final String[] headers = beanReader.getHeader(true);
+            final CellProcessor[] processors = getProcessors();
+
+            Question question;
+            while ((question = beanReader.read(Question.class, headers, processors)) != null) {
+                questions.add(question);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return result;
+        return questions;
+    }
+    private static CellProcessor[] getProcessors() {
+        final CellProcessor[] processors = new CellProcessor[] {
+                new NotNull(new ParseInt()),
+                new NotNull()
+        };
+        return processors;
     }
 }

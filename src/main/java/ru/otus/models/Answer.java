@@ -1,22 +1,14 @@
 package ru.otus.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Answer {
-    private final int questionId;
-    private final String text;
-    private final boolean correctAnswer;
-
-    public Answer(int questionId, String text, boolean correctAnswer) {
-        this.questionId = questionId;
-        this.text = text;
-        this.correctAnswer = correctAnswer;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public boolean isCorrectAnswer() {
-        return correctAnswer;
-    }
-
+    private  int questionId;
+    private String text;
+    private boolean correctAnswer;
 }
