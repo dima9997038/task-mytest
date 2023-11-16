@@ -1,5 +1,6 @@
 package ru.otus.repositories.impl;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.supercsv.cellprocessor.ParseBool;
 import org.supercsv.cellprocessor.ParseInt;
@@ -21,9 +22,10 @@ import java.util.List;
 
 @Repository
 public class ResultRepositoryImpl implements ResultRepository {
-    static final String CSV_FILENAME = "src/main/resources/results.csv";
+    @Value("${filename.results}")
+    private String CSV_FILENAME;
 
-    public List<Result> findAll(){
+    public List<Result> findAll() {
         List<Result> results = new ArrayList<>();
         try (ICsvBeanReader beanReader = new CsvBeanReader(new FileReader(CSV_FILENAME), CsvPreference.STANDARD_PREFERENCE)) {
             final String[] headers = beanReader.getHeader(true);
@@ -31,7 +33,7 @@ public class ResultRepositoryImpl implements ResultRepository {
 
             Result result;
             while ((result = beanReader.read(Result.class, headers, processors)) != null) {
-                    results.add(result);
+                results.add(result);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -62,10 +64,9 @@ public class ResultRepositoryImpl implements ResultRepository {
         ICsvBeanWriter beanWriter = null;
         List<Result> results = findAll();
         results.add(result);
-        try
-        {
+        try {
             beanWriter = new CsvBeanWriter(new FileWriter(CSV_FILENAME), CsvPreference.STANDARD_PREFERENCE);
-            final String[] header = new String[] { "studentId", "questionId", "correct"};
+            final String[] header = new String[]{"studentId", "questionId", "correct"};
             final CellProcessor[] processors = getProcessorsSave();
             beanWriter.writeHeader(header);
             for (Result c : results) {
@@ -73,7 +74,7 @@ public class ResultRepositoryImpl implements ResultRepository {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }  finally {
+        } finally {
             try {
                 beanWriter.close();
             } catch (IOException e) {
@@ -89,6 +90,7 @@ public class ResultRepositoryImpl implements ResultRepository {
                 new NotNull(new ParseBool())
         };
     }
+
     private static CellProcessor[] getProcessorsSave() {
         return new CellProcessor[]{
                 new NotNull(new ParseInt()),

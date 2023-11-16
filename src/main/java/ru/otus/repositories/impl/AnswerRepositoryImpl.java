@@ -1,5 +1,6 @@
 package ru.otus.repositories.impl;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.supercsv.cellprocessor.ParseBool;
 import org.supercsv.cellprocessor.ParseInt;
@@ -18,7 +19,8 @@ import java.util.List;
 
 @Repository
 public class AnswerRepositoryImpl implements AnswerRepository {
-    static final String CSV_FILENAME = "src/main/resources/answers.csv";
+    @Value("${filename.answers}")
+    private String CSV_FILENAME;
 
     @Override
     public List<Answer> answersOfQuestion(Integer questionId) {

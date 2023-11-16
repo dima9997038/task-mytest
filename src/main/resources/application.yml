@@ -1,0 +1,5 @@
+filename:
+  students: src/main/resources/students.csv
+  questions: src/main/resources/questions.csv
+  answers: src/main/resources/answers.csv
+  results: src/main/resources/results.csv
